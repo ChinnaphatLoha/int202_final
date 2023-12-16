@@ -21,17 +21,7 @@ public class Authentication extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
-        if (email == null || email.trim().isBlank()) {
-            request.setAttribute("loginError", "You must enter the email to proceed!");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-
-        EmployeeRepository employeeRepository = new EmployeeRepository();
-        Optional<Employee> employeeOpt = employeeRepository.findByEmail(email);
+        Optional<Employee> employeeOpt;
 
         if (employeeOpt.isEmpty()) {
             request.setAttribute("loginError", "This email is not exist!");
@@ -40,19 +30,7 @@ public class Authentication extends HttpServlet {
         }
 
         Employee employee = employeeOpt.get();
-
+        // Hashed using this Argon2Factory.Argon2Types.ARGON2d type!
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2d, 16, 16);
-        char[] passwordArray = password.toCharArray();
-        boolean isValid = argon2.verify(employee.getPassword(), passwordArray);
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(isValid);
-        if (!isValid) {
-            request.setAttribute("loginError", "Invalid Password or Email");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        } else {
-            request.getSession().setAttribute("user", employee);
-            response.sendRedirect("/company");
-        }
     }
 }

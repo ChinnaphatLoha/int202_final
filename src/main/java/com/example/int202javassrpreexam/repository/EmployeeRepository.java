@@ -8,6 +8,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,26 +24,16 @@ public class EmployeeRepository {
     }
 
     public List<Employee> findAll() {
-        return getEntityManager().createNamedQuery("Employee.findAll", Employee.class).getResultList();
+        return Collections.emptyList();
     }
 
     public Employee findById(Integer employeeId) {
-        return getEntityManager()
-                .createNamedQuery("Employee.findById", Employee.class)
-                .setParameter("id", employeeId)
-                .getSingleResult();
+        return null;
     }
 
     public Optional<Employee> findByEmail(String email) {
-        try {
-            Employee employee = getEntityManager()
-                    .createNamedQuery("Employee.findByEmail", Employee.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
-            return Optional.of(employee);
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+        // Optional for null value
+        return Optional.empty();
     }
 
     public void create(Employee employee) {
@@ -55,16 +47,6 @@ public class EmployeeRepository {
         } finally {
             em.close();
         }
-    }
-
-    public void updateReportsToForEmployee(Integer currentManagerId, Integer newManagerId) {
-        EntityManager em = getEntityManager();
-        em.getTransaction().begin();
-        em.createNamedQuery("Employee.updateReportTo")
-                .setParameter("newManagerId", newManagerId)
-                .setParameter("currentManagerId", currentManagerId)
-                .executeUpdate();
-        em.getTransaction().commit();
     }
 
     public void delete(Employee employee) {

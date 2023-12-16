@@ -16,11 +16,7 @@ import java.util.List;
 public class OfficeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OfficeRepository officeRepository = new OfficeRepository();
-        List<Office> offices = officeRepository.findAll();
-        HttpSession session = request.getSession();
-        session.setAttribute("offices", offices);
-        getServletContext().getRequestDispatcher("/office.jsp").forward(request, response);
+
     }
 
     @Override

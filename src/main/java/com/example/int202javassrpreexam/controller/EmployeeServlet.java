@@ -17,23 +17,11 @@ import java.io.IOException;
 public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String officeId = request.getParameter("officeId");
-        OfficeRepository officeRepository = new OfficeRepository();
-        request.setAttribute("officeEmployee", officeRepository.getEmployeeList(officeId));
-        request.setAttribute("officeId", officeId);
-        request.getRequestDispatcher("/employee.jsp").forward(request, response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String employeeIdParam = request.getParameter("employeeId");
-        Integer employeeId = Integer.parseInt(employeeIdParam);
-        EmployeeRepository employeeRepository = new EmployeeRepository();
-//        employeeRepository.updateReportsToForEmployee(employeeId, null);
-        Employee deletedEmployee = employeeRepository.findById(employeeId);
 
-        System.out.println(deletedEmployee);
-        employeeRepository.delete(deletedEmployee);
-        response.sendRedirect(request.getContextPath() + "/057/employee?officeId=" + request.getParameter("officeId"));
     }
 }
