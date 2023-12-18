@@ -1,3 +1,4 @@
+<%@ page import="com.example.int202javassrpreexam.constants.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -24,6 +25,8 @@
     </script>
 </head>
 <body>
+<c:set var="defaultPath" value="<%= Constants.DEFAULT_PATH %>" />
+<c:set var="servletPath" value="<%= Constants.SERVLET_PATH %>" />
 <div class="navbar bg-base-100">
     <div class="flex-1">
         <a class="btn btn-ghost text-xl" href="${pageContext.request.contextPath}">Company</a>
@@ -32,10 +35,10 @@
         <ul class="menu menu-horizontal px-1">
             <c:choose>
                 <c:when test="${empty sessionScope.user}">
-                    <li><a href="057/login">Login</a></li>
+                    <li><a href="${defaultPath}login">Login</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="057/login">Logout</a></li>
+                    <li><a href="${defaultPath}login">Logout</a></li>
                 </c:otherwise>
             </c:choose>
 
@@ -46,10 +49,10 @@
                     </summary>
                     <ul id="dropdown" class="p-2 bg-base-100 rounded-t-none">
                         <li>
-                            <a onclick="loadContent('057/office')">Office</a>
+                            <a onclick="loadContent('${defaultPath}office')">Office</a>
                         </li>
                         <li>
-                            <a onclick="loadContent('057/employee')">Employee</a>
+                            <a onclick="loadContent('${defaultPath}employee')">Employee</a>
                         </li>
                     </ul>
                 </details>

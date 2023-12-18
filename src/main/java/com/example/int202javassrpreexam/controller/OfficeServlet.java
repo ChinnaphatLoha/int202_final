@@ -11,17 +11,18 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+import com.example.int202javassrpreexam.constants.Constants;
+import static com.example.int202javassrpreexam.constants.Constants.SERVLET_PATH;
 
-@WebServlet(name = "OfficeServlet", value = DEFAULT_PATH + "office")
-public class OfficeServlet extends HttpServlet {
+@WebServlet(name = "OfficeServlet", value = SERVLET_PATH + "office")
+public class OfficeServlet extends HttpServlet implements Constants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OfficeRepository officeRepository = new OfficeRepository();
         List<Office> offices = officeRepository.findAll();
         HttpSession session = request.getSession();
         session.setAttribute("offices", offices);
-        getServletContext().getRequestDispatcher("/office.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher(VIEW_PATH + "/office.jsp").forward(request, response);
     }
 
     @Override

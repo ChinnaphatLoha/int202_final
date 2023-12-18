@@ -1,11 +1,5 @@
+<%@ page import="com.example.int202javassrpreexam.constants.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: FIRST-ACER-Desktop
-  Date: 12/15/2023
-  Time: 3:55 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,13 +7,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/output.css">
 </head>
 <body>
+<c:set var="servletPath" value="<%= Constants.SERVLET_PATH %>" />
 <div class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col w-full max-w-lg">
         <div class="text-center lg:text-left">
             <h1 class="text-5xl font-bold">Login</h1>
         </div>
         <div class="card shrink-0 w-full shadow-2xl bg-base-100">
-            <form class="card-body" method="post" action="${pageContext.request.contextPath}/057/login">
+            <form class="card-body" method="post" action="${pageContext.request.contextPath}${servletPath}login">
                 <c:if test="${requestScope.loginError != null}">
                     <div role="alert" class="alert alert-error">
                         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"

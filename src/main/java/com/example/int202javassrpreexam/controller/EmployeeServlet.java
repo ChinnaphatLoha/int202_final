@@ -10,10 +10,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+import com.example.int202javassrpreexam.constants.Constants;
+import static com.example.int202javassrpreexam.constants.Constants.SERVLET_PATH;
 
-@WebServlet(name = "EmployeeServlet", value = DEFAULT_PATH + "employee")
-public class EmployeeServlet extends HttpServlet {
+@WebServlet(name = "EmployeeServlet", value = SERVLET_PATH + "employee")
+public class EmployeeServlet extends HttpServlet implements Constants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Employee loginEmployee = (Employee) request.getSession().getAttribute("user");
@@ -21,7 +22,7 @@ public class EmployeeServlet extends HttpServlet {
         OfficeRepository officeRepository = new OfficeRepository();
         request.setAttribute("officeEmployee", officeRepository.getEmployeeList(officeId));
         request.setAttribute("officeId", officeId);
-        request.getRequestDispatcher("/employee.jsp").forward(request, response);
+        request.getRequestDispatcher(VIEW_PATH + "/employee.jsp").forward(request, response);
     }
 
     @Override
@@ -31,6 +32,6 @@ public class EmployeeServlet extends HttpServlet {
         EmployeeRepository employeeRepository = new EmployeeRepository();
         Employee deletedEmployee = employeeRepository.findById(employeeId);
         employeeRepository.delete(deletedEmployee);
-        response.sendRedirect(request.getContextPath() + DEFAULT_PATH + "employee?officeId=" + request.getParameter("officeId"));
+        response.sendRedirect(request.getContextPath() + SERVLET_PATH + "employee?officeId=" + request.getParameter("officeId"));
     }
 }

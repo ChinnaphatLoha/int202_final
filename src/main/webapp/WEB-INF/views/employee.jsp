@@ -1,3 +1,4 @@
+<%@ page import="com.example.int202javassrpreexam.constants.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -7,10 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<c:set var="defaultPath" value="<%= Constants.DEFAULT_PATH %>" />
+<c:set var="servletPath" value="<%= Constants.SERVLET_PATH %>" />
 <section class="p-5">
     <div class="text-sm breadcrumbs">
         <ul>
-            <li><a onclick="loadContent('057/office')">Office List</a></li>
+            <li><a onclick="loadContent('${defaultPath}office')">Office List</a></li>
             <li>Employee Office #${requestScope.officeId}</li>
         </ul>
     </div>
@@ -34,7 +37,7 @@
                     <td>${employee.firstName} ${employee.lastName}</td>
                     <td>${employee.email}</td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/057/employee" method="post">
+                        <form action="${pageContext.request.contextPath}${servletPath}employee" method="post">
                             <input type="hidden" name="employeeId" value="${employee.id}">
                             <input type="hidden" name="officeId" value="${requestScope.officeId}">
                             <button class="btn btn-outline btn-error btn-sm">delete</button>

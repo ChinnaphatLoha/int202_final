@@ -1,5 +1,6 @@
 package com.example.int202javassrpreexam.controller;
 
+import com.example.int202javassrpreexam.constants.Constants;
 import com.example.int202javassrpreexam.model.Employee;
 import com.example.int202javassrpreexam.repository.EmployeeRepository;
 import de.mkammerer.argon2.*;
@@ -9,13 +10,13 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+import static com.example.int202javassrpreexam.constants.Constants.SERVLET_PATH;
 
-@WebServlet(name = "Authentication", value = DEFAULT_PATH + "login")
-public class Authentication extends HttpServlet {
+@WebServlet(name = "Authentication", value = SERVLET_PATH + "login")
+public class Authentication extends HttpServlet implements Constants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher(VIEW_PATH + "/login.jsp").forward(request, response);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class Authentication extends HttpServlet {
 
         if (email == null || email.trim().isBlank()) {
             request.setAttribute("loginError", "You must enter the email to proceed!");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher(VIEW_PATH + "/login.jsp").forward(request, response);
             return;
         }
 
@@ -34,7 +35,7 @@ public class Authentication extends HttpServlet {
 
         if (employeeOpt.isEmpty()) {
             request.setAttribute("loginError", "This email is not exist!");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher(VIEW_PATH + "/login.jsp").forward(request, response);
             return;
         }
 
@@ -45,7 +46,7 @@ public class Authentication extends HttpServlet {
         boolean isValid = argon2.verify(employee.getPassword(), passwordArray);
         if (!isValid) {
             request.setAttribute("loginError", "Invalid Password or Email");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            request.getRequestDispatcher(VIEW_PATH + "/login.jsp").forward(request, response);
         } else {
             request.getSession().setAttribute("user", employee);
             response.sendRedirect(request.getContextPath());
