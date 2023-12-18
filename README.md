@@ -244,4 +244,3 @@ public class MyClassRepository {
 - [JPA Documentation](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm)
 - [carrynong2's GitHub Repository](https://github.com/carrynong2/servlet-jsp)
 - [Guy K's Server-Side Notion](https://tall-shamrock-65b.notion.site/Server-Side-350d38886cff448388b801e4fe86a824)
-
