@@ -34,6 +34,11 @@
 6. Use the user's configured `sans` font-variation-settings by default.
 */
 
+/* my customized styles*/
+#dropdown {
+  z-index: 1000 !important;
+}
+
 html {
   line-height: 1.5;
   /* 1 */

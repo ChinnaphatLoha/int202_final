@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<section class="grid grid-cols-1 md:grid-cols-3 gap-2 p-5">
+<section class="grid grid-cols-1 md:grid-cols-3 gap-2 p-5 ">
     <c:forEach items="${sessionScope.offices}" var="office">
         <div class="card bg-base-500 shadow-xl">
             <div class="card-body">

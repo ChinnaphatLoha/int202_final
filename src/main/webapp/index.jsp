@@ -12,7 +12,13 @@
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.text();
                 })
-                .then(html => document.getElementById('content').innerHTML = html)
+                .then(html => {
+                    const details = document.querySelector('details[open]');
+                    if (details) {
+                        details.removeAttribute('open');
+                    }
+                    return document.getElementById('content').innerHTML = html
+                })
                 .catch(error => alert('There has been a problem with your fetch operation: ' + error.message));
         }
     </script>
@@ -20,7 +26,7 @@
 <body>
 <div class="navbar bg-base-100">
     <div class="flex-1">
-        <a class="btn btn-ghost text-xl">Company</a>
+        <a class="btn btn-ghost text-xl" href="${pageContext.request.contextPath}">Company</a>
     </div>
     <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
@@ -38,7 +44,7 @@
                     <summary>
                         Organization
                     </summary>
-                    <ul class="p-2 bg-base-100 rounded-t-none">
+                    <ul id="dropdown" class="p-2 bg-base-100 rounded-t-none">
                         <li>
                             <a onclick="loadContent('057/office')">Office</a>
                         </li>
