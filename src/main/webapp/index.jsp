@@ -6,8 +6,8 @@
     <title>JSP - Hello World</title>
     <link href="dist/output.css" rel="stylesheet">
     <script>
-        function loadContent() {
-            fetch('057/office')
+        function loadContent(path) {
+            fetch(path)
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.text();
@@ -40,10 +40,10 @@
                     </summary>
                     <ul class="p-2 bg-base-100 rounded-t-none">
                         <li>
-                            <a onclick="loadContent()">Office</a>
+                            <a onclick="loadContent('057/office')">Office</a>
                         </li>
                         <li>
-                            <a onclick="loadContent()">Employee</a>
+                            <a onclick="loadContent('057/employee')">Employee</a>
                         </li>
                     </ul>
                 </details>

@@ -24,7 +24,6 @@ public class TestQuery {
     public static void testRepository() {
         OfficeRepository officeRepository = new OfficeRepository();
         List<Employee> employees1 = officeRepository.getEmployeeList("1");
-        employees1.forEach(System.out::println);
     }
 
     public static void testQuery() {
@@ -35,7 +34,6 @@ public class TestQuery {
         Office office1 = em.createQuery("select o from Office o where o.id = :id", Office.class)
                 .setParameter("id", "1")
                 .getSingleResult();
-        System.out.println(office1);
     }
 
     public static void assignPassword() {

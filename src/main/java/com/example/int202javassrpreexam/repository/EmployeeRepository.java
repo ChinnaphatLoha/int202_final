@@ -1,15 +1,11 @@
 package com.example.int202javassrpreexam.repository;
 
 import com.example.int202javassrpreexam.model.Employee;
-import com.example.int202javassrpreexam.model.Office;
 import com.example.int202javassrpreexam.utils.EntityManagerBuilder;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,16 +20,26 @@ public class EmployeeRepository {
     }
 
     public List<Employee> findAll() {
-        return Collections.emptyList();
+        return getEntityManager().createNamedQuery("Employee.findAll", Employee.class).getResultList();
     }
 
     public Employee findById(Integer employeeId) {
-        return null;
+        return getEntityManager()
+                .createNamedQuery("Employee.findById", Employee.class)
+                .setParameter("id", employeeId)
+                .getSingleResult();
     }
 
     public Optional<Employee> findByEmail(String email) {
-        // Optional for null value
-        return Optional.empty();
+        try {
+            Employee employee = getEntityManager()
+                    .createNamedQuery("Employee.findByEmail", Employee.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return Optional.of(employee);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     public void create(Employee employee) {
@@ -48,6 +54,16 @@ public class EmployeeRepository {
             em.close();
         }
     }
+
+//    public void updateReportsToForEmployee(Integer currentManagerId, Integer newManagerId) {
+//        EntityManager em = getEntityManager();
+//        em.getTransaction().begin();
+//        em.createNamedQuery("Employee.updateReportTo")
+//                .setParameter("newManagerId", newManagerId)
+//                .setParameter("currentManagerId", currentManagerId)
+//                .executeUpdate();
+//        em.getTransaction().commit();
+//    }
 
     public void delete(Employee employee) {
         if (employee.getId() == null) {

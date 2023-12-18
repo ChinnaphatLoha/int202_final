@@ -19,14 +19,18 @@ public class OfficeRepository {
     }
 
     public List<Office> findAll() {
-        return Collections.emptyList();
+        return getEntityManager().createNamedQuery("Office.findAll", Office.class).getResultList();
     }
 
     public Office findById(String id) {
-        return null;
+        return getEntityManager().createNamedQuery("Office.findById", Office.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     public List<Employee> getEmployeeList(String officeId) {
-        return Collections.emptyList();
+        return getEntityManager().createNamedQuery("Office.getEmployees", Employee.class)
+                .setParameter("id", officeId)
+                .getResultList();
     }
 }

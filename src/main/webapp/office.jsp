@@ -11,7 +11,7 @@
                 <p>COUNTRY: ${office.country}</p>
                 <p>POSTAL CODE: ${office.postalCode}</p>
                 <div class="card-actions">
-                    <a class="btn btn-primary" href="057/employee?officeId=${office.id}">Manage Employee</a>
+                    <a class="btn btn-primary" onclick="loadContent('057/employee?officeId=${office.id}')">Manage Employee</a>
                 </div>
             </div>
         </div>

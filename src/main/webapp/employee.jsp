@@ -17,7 +17,7 @@
 <section class="p-5">
     <div class="text-sm breadcrumbs">
         <ul>
-            <li><a href="${pageContext.request.contextPath}">Office List</a></li>
+            <li><a onclick="loadContent('057/office')">Office List</a></li>
             <li>Employee Office #${requestScope.officeId}</li>
         </ul>
     </div>
