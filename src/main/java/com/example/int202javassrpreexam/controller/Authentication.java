@@ -6,11 +6,12 @@ import de.mkammerer.argon2.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "Authentication", value = "/057/login")
+import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+
+@WebServlet(name = "Authentication", value = DEFAULT_PATH + "login")
 public class Authentication extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

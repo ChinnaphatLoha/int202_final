@@ -8,11 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "OfficeServlet", value = "/057/office")
+import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+
+@WebServlet(name = "OfficeServlet", value = DEFAULT_PATH + "office")
 public class OfficeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

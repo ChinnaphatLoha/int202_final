@@ -8,10 +8,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
-@WebServlet(name = "EmployeeServlet", value = "/057/employee")
+import static com.example.int202javassrpreexam.constants.Constants.DEFAULT_PATH;
+
+@WebServlet(name = "EmployeeServlet", value = DEFAULT_PATH + "employee")
 public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,10 +29,8 @@ public class EmployeeServlet extends HttpServlet {
         String employeeIdParam = request.getParameter("employeeId");
         Integer employeeId = Integer.parseInt(employeeIdParam);
         EmployeeRepository employeeRepository = new EmployeeRepository();
-//        employeeRepository.updateReportsToForEmployee(employeeId, null);
         Employee deletedEmployee = employeeRepository.findById(employeeId);
-
         employeeRepository.delete(deletedEmployee);
-        response.sendRedirect(request.getContextPath() + "/057/employee?officeId=" + request.getParameter("officeId"));
+        response.sendRedirect(request.getContextPath() + DEFAULT_PATH + "employee?officeId=" + request.getParameter("officeId"));
     }
 }
