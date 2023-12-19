@@ -17,12 +17,17 @@ import static com.example.int202javassrpreexam.constants.Constants.SERVLET_PATH;
 public class EmployeeServlet extends HttpServlet implements Constants {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Employee loginEmployee = (Employee) request.getSession().getAttribute("user");
-        String officeId = (request.getParameter("officeId") != null) ? request.getParameter("officeId") : loginEmployee.getOffice().getId();
         OfficeRepository officeRepository = new OfficeRepository();
-        request.setAttribute("officeEmployee", officeRepository.getEmployeeList(officeId));
-        request.setAttribute("officeId", officeId);
-        request.getRequestDispatcher(VIEW_PATH + "/employee.jsp").forward(request, response);
+        if (request.getParameter("deleting") != null) {
+            request.setAttribute("officeEmployee", officeRepository.getEmployeeList(request.getParameter("officeId")));
+            doPost(request, response);
+        } else {
+            Employee loginEmployee = (Employee) request.getSession().getAttribute("user");
+            String officeId = (request.getParameter("officeId") != null) ? request.getParameter("officeId") : loginEmployee.getOffice().getId();
+            request.setAttribute("officeEmployee", officeRepository.getEmployeeList(officeId));
+            request.setAttribute("officeId", officeId);
+            request.getRequestDispatcher(VIEW_PATH + "/employee.jsp").forward(request, response);
+        }
     }
 
     @Override
@@ -32,6 +37,6 @@ public class EmployeeServlet extends HttpServlet implements Constants {
         EmployeeRepository employeeRepository = new EmployeeRepository();
         Employee deletedEmployee = employeeRepository.findById(employeeId);
         employeeRepository.delete(deletedEmployee);
-        response.sendRedirect(request.getContextPath() + SERVLET_PATH + "employee?officeId=" + request.getParameter("officeId"));
+        request.getRequestDispatcher(VIEW_PATH + "/employee.jsp").forward(request, response);
     }
 }

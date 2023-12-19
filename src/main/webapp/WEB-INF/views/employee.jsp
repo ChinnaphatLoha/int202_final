@@ -37,11 +37,8 @@
                     <td>${employee.firstName} ${employee.lastName}</td>
                     <td>${employee.email}</td>
                     <td>
-                        <form action="${pageContext.request.contextPath}${servletPath}employee" method="post">
-                            <input type="hidden" name="employeeId" value="${employee.id}">
-                            <input type="hidden" name="officeId" value="${requestScope.officeId}">
-                            <button class="btn btn-outline btn-error btn-sm">delete</button>
-                        </form>
+                        <c:set var="deletePath" value="${defaultPath}employee?deleting=y&employeeId=${employee.id}&officeId=${requestScope.officeId}"/>
+                        <button class="btn btn-outline btn-error btn-sm" onclick="loadContent('${deletePath}')">delete</button>
                     </td>
                 </tr>
             </c:forEach>
